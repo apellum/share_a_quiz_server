@@ -1,4 +1,5 @@
-class UsersController < ApplicationController
+class Api::V1::UsersController < ApplicationController
+  skip_before_action :authorized, only: [:create, :get_current_user]
   before_action :set_user, only: [:show, :update, :destroy]
 
   # GET /users
@@ -18,9 +19,18 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
+      @token = encode_token(user_id: @user.id)
       render json: @user, status: :created
     else
-      render json: @user.errors, status: :unprocessable_entity
+      render json: {errors: @user.errors.full_messages}, status: :unprocessable_entity
+    end
+  end
+
+  def get_current_user
+    if logged_in?
+      render json: {user: current_user}, status: :ok
+    else
+      render json: {errors: ["No user logged in"]}, status: :ok
     end
   end
 
@@ -46,6 +56,6 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:email, :name, :username, :password, :date_of_birth)
+      params.permit(:email, :name, :username, :password, :date_of_birth)
     end
 end
