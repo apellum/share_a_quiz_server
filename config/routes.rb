@@ -1,8 +1,12 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
-      resources :users
-      resources :quizzes
+      resources :users do 
+        resources :quizzes, only: [:create, :update, :destroy]
+      end
+      resources :quizzes do
+        resources :questions, only: [:create]
+      end
       resources :questions
       
       get '/get-current-user', to: 'users#get_current_user'
