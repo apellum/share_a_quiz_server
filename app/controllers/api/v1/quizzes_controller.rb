@@ -15,7 +15,8 @@ class Api::V1::QuizzesController < ApplicationController
 
   # POST /quizzes
   def create
-    @quiz = Quiz.new(quiz_params)
+    user = User.find_by_id(params[:user_id])
+    @quiz = user.quizzes.create(quiz_params)
 
     if @quiz.save
       render json: @quiz, status: :created
