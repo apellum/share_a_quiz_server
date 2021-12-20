@@ -29,7 +29,7 @@ Question.create(question: "Who is the alltime strikeout leader?", answer: "Nolan
 Question.create(question: "Who is the GOAT?", answer: "Tom Brady", quiz_id: 4)
 Question.create(question: "What team plays in New Orleans?", answer: "Saints", quiz_id: 4)
 
-Question.create(question: "Who plays uncle jessee?", answer: "John Stamos", quiz_id: 5)
+Question.create(question: "Who plays uncle Jessee?", answer: "John Stamos", quiz_id: 5)
 Question.create(question: "Who plays Danny Tanner?", answer: "Bob Saget", quiz_id: 5)
 
 
